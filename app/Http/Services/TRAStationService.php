@@ -28,7 +28,7 @@ class TRAStationService
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
                 'x-date: ' . $this->authorization->getXdate(),
-                'Authorization: hmac username="' . $this->authorization->getAppId() . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->getSignature() . '"',
+                'Authorization: hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->getSignature() . '"',
                 'Accept-Encoding: gzip, deflate'
             ),
         ));

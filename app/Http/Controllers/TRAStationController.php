@@ -10,10 +10,10 @@ class TRAStationController extends Controller
 {
     public function getTRAStation(Request $request)
     {
-        // $TRAStation = new TRAStationService();
+        $TRAStation = new TRAStationService();
 
-        // return response($TRAStation->getTRAStation(), 200);
+        return response($TRAStation->getTRAStation(), 200);
 
-        return response($request->header('x-date'), 200);
+        // return response(['message' => 'success'], 200);
     }
 }
