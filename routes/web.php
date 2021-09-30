@@ -17,5 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('v1/TRA/Stations','App\Http\Controllers\TRAStationController@getTRAStation');
+Route::middleware('appKey')->group(function () {
+    Route::get('v1/TRA/Stations', 'App\Http\Controllers\TRAStationController@getTRAStation');
+});
+
 
