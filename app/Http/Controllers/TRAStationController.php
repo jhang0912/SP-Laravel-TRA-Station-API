@@ -8,10 +8,12 @@ use App\Http\Services\TRAStationService;
 
 class TRAStationController extends Controller
 {
-    public function getTRAStation()
+    public function getTRAStation(Request $request)
     {
-        $TRAStation = new TRAStationService();
+        // $TRAStation = new TRAStationService();
 
-        return $TRAStation->getTRAStation();
+        // return response($TRAStation->getTRAStation(), 200);
+
+        return response($request->header('x-date'), 200);
     }
 }
