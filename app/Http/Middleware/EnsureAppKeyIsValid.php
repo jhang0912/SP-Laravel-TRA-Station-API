@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class EnsureAppKeyIsValid
 {
-    private $appKey = 'EE76-CF71-C7A495-8D8F-91BF';
     /**
      * Handle an incoming request.
      *
@@ -15,6 +14,9 @@ class EnsureAppKeyIsValid
      * @param  \Closure  $next
      * @return mixed
      */
+
+    private $appKey = 'EE76-CF71-C7A495-8D8F-91BF';
+
     public function handle(Request $request, Closure $next)
     {
         $serverDate = gmdate('D, d M Y H:i') . ' GMT';

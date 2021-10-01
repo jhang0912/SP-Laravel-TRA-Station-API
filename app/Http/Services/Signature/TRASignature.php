@@ -4,18 +4,18 @@ namespace App\Http\Services\Signature;
 
 class TRASignature
 {
-    private $xDate;
+    private $date;
     private $signature;
 
     public function __construct()
     {
-        $this->xDate = gmdate('D, d M Y H:i:s') . ' GMT';
-        $this->signature = base64_encode(hash_hmac("sha1", "x-date: $this->xDate", env('TRA_API_KEY'), true));
+        $this->date = gmdate('D, d M Y H:i:s') . ' GMT';
+        $this->signature = base64_encode(hash_hmac("sha1", "x-date: $this->date", env('TRA_API_KEY'), true));
     }
 
-    public function getXdate()
+    public function getDate()
     {
-        return $this->xDate;
+        return $this->date;
     }
 
     public function getSignature()

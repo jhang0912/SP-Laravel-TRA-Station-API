@@ -14,6 +14,7 @@ class EnsureDateIsValid
      * @param  \Closure  $next
      * @return mixed
      */
+
     public function handle(Request $request, Closure $next)
     {
         $serverDate = gmdate('D, d M Y H:i') . ' GMT';
