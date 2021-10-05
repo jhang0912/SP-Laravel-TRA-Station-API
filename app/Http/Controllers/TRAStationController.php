@@ -5,16 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Services\Signature\TRASignature;
 use Illuminate\Http\Request;
 use App\Http\Services\TRAStationService;
+use Illuminate\Support\Facades\Redis;
+
 
 class TRAStationController extends Controller
 {
-    public function getAllTRAStation(Request $request)
+    public function __construct()
     {
-        $TRAStation = new TRAStationService();
+        if (Redis::get('TRAStations') == null) {
+            $TRAStations = new TRAStationService();
+            Redis::set('TRAStations', $TRAStations->getTRAStation());
+        }
+    }
 
-        return response($TRAStation->getTRAStation(), 200);
+    public function getAllTRAStations(Request $request)
+    {
+        // $TRAStation = new TRAStationService();
 
-        // return response(['message' => 'success'], 200);
+        return response(Redis::get('TRAStations'), 200);
     }
 
     public function getTRAStation(Request $request)

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redis;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware([])->prefix('v1/tra')->group(function () {
-    Route::get('/stations', 'App\Http\Controllers\TRAStationController@getAllTRAStation');
+    Route::get('/stations', 'App\Http\Controllers\TRAStationController@getAllTRAStations');
     Route::get('/stations/{id}', 'App\Http\Controllers\TRAStationController@getTRAStation');
+
+    // Route::get('/stations/delRedis/{key}', 'App\Http\Controllers\AdminController@deleteRedis');
 });
