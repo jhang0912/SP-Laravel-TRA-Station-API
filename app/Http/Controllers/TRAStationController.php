@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\Signature\TRASignature;
-use Illuminate\Http\Request;
-use App\Http\Services\TRAStationService;
-use Illuminate\Support\Facades\Redis;
 use App\Http\Controllers\Admins\RedisController;
+use App\Http\Controllers\Interfaces\RailStation;
+use App\Http\Services\TraStationService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
-
-class TraStationController extends Controller
+class TraStationController extends Controller implements RailStation
 {
     public function __construct()
     {
         if (Redis::get('TraStations') == null) {
             $traStations = new TraStationService();
-            RedisController::create('TraStations', $traStations->getTraStation());
+            RedisController::create('TraStations', $traStations->stations());
         }
     }
 
@@ -24,8 +23,13 @@ class TraStationController extends Controller
         return response(Redis::get('TraStations'), 200);
     }
 
+    public function districtStations(Request $request)
+    {
+        return response();
+    }
+
     public function station(Request $request)
     {
-        return response(['id' => $request->id], 200);
+        return response(['postCode' => $request->post], 200);
     }
 }

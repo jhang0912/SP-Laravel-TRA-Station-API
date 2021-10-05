@@ -2,18 +2,18 @@
 
 namespace App\Http\Services;
 
-use App\Http\Services\Signature\TRASignature;
+use App\Http\Services\Signature\TraSignature;
 
-class TRAStationService
+class TraStationService
 {
     private $authorization;
 
     public function __construct()
     {
-        $this->authorization = new TRASignature();
+        $this->authorization = new TraSignature();
     }
 
-    public function getTRAStation()
+    public function stations()
     {
         $curl = curl_init();
 
@@ -27,8 +27,8 @@ class TRAStationService
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'x-date: ' . $this->authorization->getDate(),
-                'Authorization: hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->getSignature() . '"',
+                'x-date: ' . $this->authorization->Date(),
+                'Authorization: hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"',
                 'Accept-Encoding: gzip, deflate'
             ),
         ));

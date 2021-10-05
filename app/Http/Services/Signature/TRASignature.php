@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Signature;
 
-class TRASignature
+class TraSignature
 {
     private $date;
     private $signature;
@@ -13,12 +13,12 @@ class TRASignature
         $this->signature = base64_encode(hash_hmac("sha1", "x-date: $this->date", env('TRA_API_KEY'), true));
     }
 
-    public function getDate()
+    public function Date()
     {
         return $this->date;
     }
 
-    public function getSignature()
+    public function Signature()
     {
         return $this->signature;
     }
