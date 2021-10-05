@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([])->prefix('v1/tra')->group(function () {
     Route::get('/stations', 'App\Http\Controllers\TraStationController@allStations');
-    Route::get('/stations/{post}', 'App\Http\Controllers\TraStationController@Station');
+    Route::get('/stations/{postCode}', 'App\Http\Controllers\TraStationController@districtStations');
 
-    Route::get('/stations/delRedis/{key}', 'App\Http\Controllers\Admins\RedisController@delete');
+    Route::get('/stations/delRedis/{key}', 'App\Http\Controllers\Redis\RedisController@delete');
 });

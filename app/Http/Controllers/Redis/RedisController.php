@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Redis;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,6 +17,6 @@ class RedisController extends Controller
     {
         Redis::del($request->key);
 
-        return response(Redis::get('TraStations'),200);
+        return response(Redis::get($request->key),200);
     }
 }

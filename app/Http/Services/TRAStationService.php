@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\Services\Signature\TraSignature;
+use App\Http\Handle\ObjectToArray;
 
 class TraStationService
 {
@@ -29,14 +30,16 @@ class TraStationService
             CURLOPT_HTTPHEADER => array(
                 'x-date: ' . $this->authorization->Date(),
                 'Authorization: hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"',
-                'Accept-Encoding: gzip, deflate'
+                'Accept-Encoding: gzip, deflate',
+                'Accept:  application/json'
             ),
         ));
 
         $response = curl_exec($curl);
+        $response = json_decode($response);
 
         curl_close($curl);
 
-        return $response;
+        return ObjectToArray::handle($response);
     }
 }
