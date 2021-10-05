@@ -6,26 +6,25 @@ use App\Http\Services\Signature\TRASignature;
 use Illuminate\Http\Request;
 use App\Http\Services\TRAStationService;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\Admins\RedisController;
 
 
-class TRAStationController extends Controller
+class TraStationController extends Controller
 {
     public function __construct()
     {
-        if (Redis::get('TRAStations') == null) {
-            $TRAStations = new TRAStationService();
-            Redis::set('TRAStations', $TRAStations->getTRAStation());
+        if (Redis::get('TraStations') == null) {
+            $traStations = new TraStationService();
+            RedisController::create('TraStations', $traStations->getTraStation());
         }
     }
 
-    public function getAllTRAStations(Request $request)
+    public function allStations(Request $request)
     {
-        // $TRAStation = new TRAStationService();
-
-        return response(Redis::get('TRAStations'), 200);
+        return response(Redis::get('TraStations'), 200);
     }
 
-    public function getTRAStation(Request $request)
+    public function station(Request $request)
     {
         return response(['id' => $request->id], 200);
     }
