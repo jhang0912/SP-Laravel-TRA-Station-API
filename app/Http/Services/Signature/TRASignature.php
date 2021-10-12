@@ -13,12 +13,12 @@ class TraSignature
         $this->signature = base64_encode(hash_hmac("sha1", "x-date: $this->date", env('TRA_API_KEY'), true));
     }
 
-    public function Date()
+    public function date()
     {
         return $this->date;
     }
 
-    public function Signature()
+    public function signature()
     {
         return $this->signature;
     }

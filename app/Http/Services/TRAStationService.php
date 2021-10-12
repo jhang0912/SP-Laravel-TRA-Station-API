@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Services\Signature\TraSignature;
 use App\Http\Handle\ObjectToArray;
+use Illuminate\Support\Facades\Http;
 
 class TraStationService
 {
@@ -16,29 +17,13 @@ class TraStationService
 
     public function stations()
     {
-        $curl = curl_init();
+        $response = Http::accept('application/json')->withHeaders([
+            'x-date' => $this->authorization->date(),
+            'Authorization' => 'hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"'
+        ])
+            ->get('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON');
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'x-date: ' . $this->authorization->Date(),
-                'Authorization: hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"',
-                'Accept-Encoding: gzip, deflate',
-                'Accept:  application/json'
-            ),
-        ));
-
-        $response = curl_exec($curl);
         $response = json_decode($response);
-
-        curl_close($curl);
 
         return ObjectToArray::handle($response);
     }

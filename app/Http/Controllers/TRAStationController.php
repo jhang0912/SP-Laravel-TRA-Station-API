@@ -29,7 +29,7 @@ class TraStationController extends Controller implements RailStation
         $postCode = $request->postCode;
         $traStations = new TraPostCode($postCode);
 
-        return response($traStations->handle(),200);
+        return response($traStations->handle(), 200);
     }
 
     public function station(Request $request)
