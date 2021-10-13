@@ -4,9 +4,11 @@ namespace App\Http\Handle;
 
 use Illuminate\Support\Facades\Redis;
 
+
 class TraPostCode
 {
     private $postCode;
+    private $stations = array();
 
     public function __construct($postCode)
     {
@@ -15,8 +17,16 @@ class TraPostCode
 
     public function handle()
     {
-        $traAllStations = Redis::get('tra_all_stations');
+        $traStations = json_decode(Redis::get('tra_all_stations'));
 
-        return $traAllStations;
+        foreach ($traStations as $key => $traStation) {
+            $postCode = mb_substr($traStation->StationAddress, 0, 3, 'utf8');
+
+            if ($postCode == $this->postCode) {
+                $this->stations[] = $traStation;
+            }
+        }
+
+        return $this->stations;
     }
 }

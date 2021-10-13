@@ -21,15 +21,28 @@ class TraStationController extends Controller implements RailStation
 
     public function allStations(Request $request)
     {
-        return response(Redis::get('tra_all_stations'), 200);
+        return response(Redis::get('tra_all_stations'), 200)
+            ->header('Content-Type', 'application/json; charset=utf-8');
     }
 
     public function districtStations(Request $request)
     {
         $postCode = $request->postCode;
-        $traStations = new TraPostCode($postCode);
 
-        return response($traStations->handle(), 200);
+        if (Redis::get('tra_' . $postCode . '_stations') == null) {
+            $traPostCode = new TraPostCode($postCode);
+
+            $traStations = $traPostCode->handle();
+
+            if (empty($traStations)) {
+                return response(['message' => '非常抱歉，此區域內無台鐵車站資料'], 200);
+            }
+
+            RedisController::create('tra_' . $postCode . '_stations', json_encode($traStations));
+        }
+
+        return response(Redis::get('tra_' . $postCode . '_stations'), 200)
+            ->header('Content-Type', 'application/json; charset=utf-8');
     }
 
     public function station(Request $request)
