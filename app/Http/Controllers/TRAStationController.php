@@ -15,7 +15,7 @@ class TraStationController extends Controller implements RailStation
     {
         if (Redis::get('tra_all_stations') == null) {
             $traStations = new TraStationService();
-            Redis::set('tra_all_stations', json_encode($traStations->stations()));
+            RedisController::create('tra_all_stations', json_encode($traStations->stations()));
         }
     }
 
