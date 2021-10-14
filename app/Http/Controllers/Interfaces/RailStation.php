@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 interface RailStation
 {
-    public function allStations(Request $request);
-
-    public function districtStations(Request $request);
+    public function stations(Request $request);
 
     public function station(Request $request);
+
+    public function postCode(Request $request);
+
+    public function county(Request $request);
 }

@@ -4,26 +4,24 @@ namespace App\Http\Handle;
 
 use Illuminate\Support\Facades\Redis;
 
-class TraStationName
+class StationName
 {
-    private $statisonName;
+    private $stationName;
     private $station = array();
 
-    public function __construct($statisonName)
+    public function __construct($stationName)
     {
-        $this->statisonName = $statisonName;
+        $this->stationName = $stationName;
     }
 
     public function handle()
     {
         $traStations = json_decode(Redis::get('tra_all_stations'));
-
         foreach ($traStations as $traStation) {
-            if ($traStation->StationName->Zh_tw == $this->statisonName) {
+            if ($traStation->StationName->En == $this->stationName) {
                 $this->station[] = $traStation;
             }
         }
-
         return $this->station;
     }
 }
