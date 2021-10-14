@@ -22,11 +22,11 @@ class EnsureDateIsValid
         if ($request->hasHeader('x-date')) {
             $clientDate = $request->header('x-date');
         } else {
-            return response(['message' => 'HMAC signature cannot be verified, a valid date or x-date header is required for HMAC Authentication'], 401);
+            return response(['message' => '無法驗證 HMAC 簽章，HMAC 驗證需要有效日期或 x-date 標頭'], 401);
         }
 
         if ($serverDate !== $clientDate) {
-            return response(['message' => 'HMAC signature does not match'], 403);
+            return response(['message' => 'HMAC 簽章未通過驗證'], 403);
         }
 
         return $next($request);

@@ -24,13 +24,13 @@ class EnsureAppKeyIsValid
         if ($request->hasHeader('Authorization')) {
             $clientSignature = $request->header('Authorization');
         } else {
-            return response(['message' => 'Unauthorized'], 401);
+            return response(['message' => '請求未授權'], 401);
         }
 
         $serverSignature = "signature='" . base64_encode(hash_hmac('sha1', $serverDate, $this->appKey, true)) . "'";
 
         if ($clientSignature !== $serverSignature) {
-            return response(['message' => 'HMAC signature does not match'], 403);
+            return response(['message' => 'HMAC 簽章未通過驗證'], 403);
         }
 
         return $next($request);
