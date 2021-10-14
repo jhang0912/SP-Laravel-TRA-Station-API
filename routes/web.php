@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([])->prefix('v1/tra')->group(function () {
+Route::middleware(['throttle:tra'])->prefix('v1/tra')->group(function () {
     Route::get('/stations', 'App\Http\Controllers\TraStationController@stations');
     Route::get('/stations/{stationName}', 'App\Http\Controllers\TraStationController@station');
     Route::get('/stations/county/{county}', 'App\Http\Controllers\TraStationController@county');
