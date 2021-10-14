@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'http://localhost/laravel/TRA_Station_API/public/v1/tra/stations/*'
     ];
 }

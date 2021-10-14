@@ -19,7 +19,7 @@ class TraPostCode
     {
         $traStations = json_decode(Redis::get('tra_all_stations'));
 
-        foreach ($traStations as $key => $traStation) {
+        foreach ($traStations as $traStation) {
             $postCode = mb_substr($traStation->StationAddress, 0, 3, 'utf8');
 
             if ($postCode == $this->postCode) {
