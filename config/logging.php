@@ -41,6 +41,11 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'TRAStationService' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/TRAStationService.log')
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
