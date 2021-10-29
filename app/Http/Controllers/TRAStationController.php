@@ -17,13 +17,20 @@ class TraStationController extends Controller implements RailStation
     {
         if (Redis::get('tra_all_stations') == null) {
             $traStations = new TraStationService();
-            RedisController::create('tra_all_stations', json_encode($traStations->stations()));
+            $Stations = $traStations->stations();
+            if ($Stations != null) {
+                RedisController::create('tra_all_stations', json_encode($Stations));
+            }
         }
     }
 
 
     public function stations(Request $request)
     {
+        $Stations = json_decode(Redis::get('tra_all_stations'));
+        if (empty($Stations)) {
+            return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+        }
         return response(['Stations' => json_decode(Redis::get('tra_all_stations'))], 200);
     }
 
