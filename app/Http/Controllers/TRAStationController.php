@@ -59,6 +59,9 @@ class TraStationController extends Controller implements RailStation
         if (Redis::get('tra_' . $county . '_stations') == null) {
             $traCounty = new County($county);
             $traStations = $traCounty->handle();
+            if ($traStations->status == 'error') {
+                return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+            }
             if (empty($traStations)) {
                 return response(['message' => '非常抱歉，此縣市內無台鐵車站資料'], 403);
             }

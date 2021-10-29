@@ -46,9 +46,9 @@ return [
             'path' => storage_path('logs/TRAStationService.log')
         ],
 
-        'StationName' => [
+        'Handle' => [
             'driver' => 'single',
-            'path' => storage_path('logs/StationName.log')
+            'path' => storage_path('logs/Handle.log')
         ],
 
         'single' => [

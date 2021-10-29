@@ -28,7 +28,7 @@ class StationName
             return $this->station;
         } catch (\Throwable $th) {
             $this->status = 'error';
-            Log::channel('StationName')->error('error', ['message' => $th->getMessage()]);
+            Log::channel('Handle')->error(['source' => 'StationName', 'message' => $th->getMessage()]);
         }
     }
 }
