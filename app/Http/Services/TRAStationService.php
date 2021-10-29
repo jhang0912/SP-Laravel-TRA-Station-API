@@ -32,7 +32,7 @@ class TraStationService
                 return ObjectToArray::handle($response);
             }
         } catch (\Throwable $th) {
-            Log::channel('TRAStationService')->error('error', ['message' => $th->getMessage()]);
+            Log::channel('Service')->error('error', ['source' => 'TRAStationService', 'message' => $th->getMessage()]);
         }
     }
 }
