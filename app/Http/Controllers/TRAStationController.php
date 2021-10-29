@@ -41,6 +41,9 @@ class TraStationController extends Controller implements RailStation
         if (Redis::get('tra_' . $stationName . '_station') == null) {
             $traStationName = new StationName($stationName);
             $traStation = $traStationName->handle();
+            if ($traStationName->status == 'error') {
+                return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+            }
             if (empty($traStation)) {
                 return response(['message' => '非常抱歉，無此台鐵車站資料'], 403);
             }

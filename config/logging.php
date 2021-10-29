@@ -46,6 +46,11 @@ return [
             'path' => storage_path('logs/TRAStationService.log')
         ],
 
+        'StationName' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/StationName.log')
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

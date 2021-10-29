@@ -21,7 +21,7 @@ class TraStationService
         try {
             $response = Http::accept('application/json')
                 ->withHeaders([
-                    'x-date' => $this->authorization->date(),
+                    'x-' => $this->authorization->date(),
                     'Authorization' => 'hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"'
                 ])
                 ->get('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON');
