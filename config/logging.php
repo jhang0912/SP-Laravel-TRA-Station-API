@@ -41,9 +41,14 @@ return [
             'ignore_exceptions' => false,
         ],
 
-        'TRAStationService' => [
+        'Service' => [
             'driver' => 'single',
-            'path' => storage_path('logs/TRAStationService.log')
+            'path' => storage_path('logs/Service.log')
+        ],
+
+        'Handle' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/Handle.log')
         ],
 
         'single' => [

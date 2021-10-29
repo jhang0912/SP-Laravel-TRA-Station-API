@@ -41,6 +41,9 @@ class TraStationController extends Controller implements RailStation
         if (Redis::get('tra_' . $stationName . '_station') == null) {
             $traStationName = new StationName($stationName);
             $traStation = $traStationName->handle();
+            if ($traStationName->status == 'error') {
+                return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+            }
             if (empty($traStation)) {
                 return response(['message' => '非常抱歉，無此台鐵車站資料'], 403);
             }
@@ -56,6 +59,9 @@ class TraStationController extends Controller implements RailStation
         if (Redis::get('tra_' . $county . '_stations') == null) {
             $traCounty = new County($county);
             $traStations = $traCounty->handle();
+            if ($traCounty->status == 'error') {
+                return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+            }
             if (empty($traStations)) {
                 return response(['message' => '非常抱歉，此縣市內無台鐵車站資料'], 403);
             }
@@ -71,6 +77,9 @@ class TraStationController extends Controller implements RailStation
         if (Redis::get('tra_' . $postCode . '_stations') == null) {
             $traPostCode = new PostCode($postCode);
             $traStations = $traPostCode->handle();
+            if ($traPostCode->status == 'error') {
+                return response(['message' => '非常抱歉，系統發生異常錯誤，請聯絡開發人員'], 501);
+            }
             if (empty($traStations)) {
                 return response(['message' => '非常抱歉，此區域內無台鐵車站資料'], 403);
             }

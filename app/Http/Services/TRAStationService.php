@@ -27,12 +27,12 @@ class TraStationService
                 ->get('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON');
             $response = json_decode($response);
             if (!empty($response->message)) {
-                Log::channel('TRAStationService')->error('error', ['message' => $response->message]);
+                Log::channel('Service')->error('error', ['source' => 'TRAStationService', 'message' => $response->message]);
             } else {
                 return ObjectToArray::handle($response);
             }
         } catch (\Throwable $th) {
-            Log::channel('TRAStationService')->error('error', ['message' => $th->getMessage()]);
+            Log::channel('Service')->error('error', ['source' => 'TRAStationService', 'message' => $th->getMessage()]);
         }
     }
 }
