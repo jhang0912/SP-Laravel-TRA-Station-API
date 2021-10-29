@@ -5,15 +5,15 @@ namespace App\Http\Handle;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 
-class County
+class Address
 {
     public $status;
-    private $county;
+    private $address;
     private $stations = array();
 
-    public function __construct($county)
+    public function __construct($address)
     {
-        $this->county = $county;
+        $this->address = $address;
     }
 
     public function handle()
@@ -21,14 +21,14 @@ class County
         try {
             $traStations = json_decode(Redis::get('tra_all_stations'));
             foreach ($traStations as $traStation) {
-                if (strpos($traStation->StationAddress, $this->county)) {
+                if (strpos($traStation->StationAddress, $this->address)) {
                     $this->stations[] = $traStation;
                 }
             }
             return $this->stations;
         } catch (\Throwable $th) {
             $this->status = 'error';
-            Log::channel('Handle')->error(['source' => 'County', 'message' => $th->getMessage()]);
+            Log::channel('Handle')->error(['source' => 'Address', 'line' => $th->getLine(), 'message' => $th->getMessage()]);
         }
     }
 }

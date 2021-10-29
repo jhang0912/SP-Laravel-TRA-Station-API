@@ -9,7 +9,7 @@ class StationName
 {
     public $status;
     private $stationName;
-    private $station = array();
+    private $station;
 
     public function __construct($stationName)
     {
@@ -22,13 +22,13 @@ class StationName
             $traStations = json_decode(Redis::get('tra_all_stations'));
             foreach ($traStations as $traStation) {
                 if ($traStation->StationName->En == $this->stationName) {
-                    $this->station[] = $traStation;
+                    $this->station = $traStation;
                 }
             }
             return $this->station;
         } catch (\Throwable $th) {
             $this->status = 'error';
-            Log::channel('Handle')->error(['source' => 'StationName', 'message' => $th->getMessage()]);
+            Log::channel('Handle')->error(['source' => 'StationName', 'line' => $th->getLine(), 'message' => $th->getMessage()]);
         }
     }
 }

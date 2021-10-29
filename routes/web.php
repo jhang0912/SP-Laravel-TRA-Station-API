@@ -16,8 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['throttle:tra'])->prefix('v1/tra/stations')->group(function () {
     Route::get('/', 'App\Http\Controllers\TraStationController@stations');
     Route::get('/{stationName}', 'App\Http\Controllers\TraStationController@station');
-    Route::get('/county/{county}', 'App\Http\Controllers\TraStationController@county');
-    Route::get('/post-code/{postCode}', 'App\Http\Controllers\TraStationController@postCode');
-
-    Route::get('/delRedis/{key}', 'App\Http\Controllers\Redis\RedisController@delete');
+    // Route::get('/delRedis/{key}', 'App\Http\Controllers\Redis\RedisController@delete');
 });

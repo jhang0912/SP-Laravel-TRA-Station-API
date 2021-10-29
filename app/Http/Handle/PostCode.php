@@ -29,7 +29,7 @@ class PostCode
             return $this->stations;
         } catch (\Throwable $th) {
             $this->status = 'error';
-            Log::channel('Handle')->error(['source' => 'PostCode', 'message' => $th->getMessage()]);
+            Log::channel('Handle')->error(['source' => 'PostCode', 'line' => $th->getLine(), 'message' => $th->getMessage()]);
         }
     }
 }
