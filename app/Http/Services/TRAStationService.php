@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Http;
 class TraStationService
 {
     private $authorization;
+    private $resource;
 
-    public function __construct()
+    public function __construct(string $resource)
     {
         $this->authorization = new TraSignature();
+        $this->resource = $resource;
     }
 
-    public function stations()
+    public function handle(string $url)
     {
         try {
             $response = Http::accept('application/json')
@@ -24,12 +26,12 @@ class TraStationService
                     'x-date' => $this->authorization->date(),
                     'Authorization' => 'hmac username="' . env('TRA_API_ID') . '", algorithm="hmac-sha1", headers="x-date", signature="' . $this->authorization->Signature() . '"'
                 ])
-                ->get('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON');
+                ->get($url);
             $response = json_decode($response);
             if (!empty($response->message)) {
                 Log::channel('Service')->error('error', ['source' => 'TRAStationService', 'message' => $response->message]);
             } else {
-                return ObjectToArray::handle($response);
+                return ObjectToArray::handle($this->resource, $response);
             }
         } catch (\Throwable $th) {
             Log::channel('Service')->error('error', ['source' => 'TRAStationService', 'message' => $th->getMessage()]);
