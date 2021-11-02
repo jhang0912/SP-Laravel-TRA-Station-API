@@ -9,7 +9,6 @@ use App\Http\Controllers\Redis\RedisController;
 use App\Http\Controllers\Interfaces\RailStation;
 use App\Http\Services\TraStationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redis;
 
 class TraStationController extends Controller implements RailStation
@@ -69,5 +68,14 @@ class TraStationController extends Controller implements RailStation
             RedisController::create('tra_' . $stationName . '_station', json_encode($traStation));
         }
         return response(['Station' => json_decode(Redis::get('tra_' . $stationName . '_station'))], 200);
+    }
+
+    /* Nested Resource */
+
+    public function exits(Request $request)
+    {
+        $stationName = $request->stationName;
+
+        return response($stationName, 200);
     }
 }
