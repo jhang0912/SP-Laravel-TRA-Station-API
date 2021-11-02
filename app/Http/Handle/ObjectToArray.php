@@ -4,11 +4,11 @@ namespace App\Http\Handle;
 
 class ObjectToArray
 {
-    static function handle(object $object)
+    static function handle(string $resource, object $object)
     {
         $array = array();
 
-        $stations = $object->Stations;
+        $stations = $object->$resource;
 
         foreach ($stations as $key => $station) {
             $array[$key] = $station;
