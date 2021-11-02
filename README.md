@@ -7,58 +7,44 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About 「Laravel TRA Station API Server」
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+這是一份使用 PHP 框架 Laravel 進行撰寫的作品，以「公共運輸整合資訊流通服務平臺 」所提供的台鐵車站資料為基礎，加以串接整理後開發(搭配 Redis 儲存資料)供第三方使用者可應用的 API Server，請參考以下使用說明：
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 快速入門
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+|方法|網址|功能說明|
+|--|--|--|
+|GET|http://35.194.145.6/v1/tra/stations|取得所有台鐵車站的基本資料|
+|GET|http://35.194.145.6/v1/tra/stations/{車站名稱}|取得單一台鐵車站的基本資料|
+|GET|http://35.194.145.6/v1/tra/stations/{車站名稱}/exits|取得單一台鐵車站所有出入口資料|
 
-## Learning Laravel
+## 資料篩選
+### 使用「取得所有台鐵車站的基本資料」服務時，可選擇附帶參數(二擇一)篩選資料，說明如下：
+- address：不限位數中文字串(string)，例如：台北市、中正區、新北、板橋
+- post code：三位數整數(integer)郵遞區號，例如：100、220
+### 串接範例
+- address：http://35.194.145.6/v1/tra/stations?address=板橋區
+- post code：http://35.194.145.6/v1/tra/stations?postCode=220
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 使用說明
+### 使用「取得單一台鐵車站的基本資料」服務時，{ }內需填入英文字串，內容為車站名稱，例如：Taipei、Wanhua
+### 串接範例
+- http://35.194.145.6//v1/tra/stations/Taipei
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 嵌套資料
+### 使用「取得單一台鐵車站的基本資料」服務時，可於網址後方輸入 「/exits 」查詢車站所有出入口資料
 
-## Laravel Sponsors
+## 注意事項
+- 速率限制：每分鐘接受最多60次請求
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 部署環境
+|工具|版本|
+|--|--|
+|雲端服務|GCP|
+|OS|Ubuntu 20.04 LTS|
+|Apache|2.4.41|
+|PHP|8.0|
+|Laravel|8.62|
+|Redis|5.0.7|
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
