@@ -11,12 +11,12 @@ class RedisController extends Controller
 {
     static function create(string $key, $value)
     {
-        Redis::set($key,$value);
+        Redis::setex($key, 14400, $value);
     }
     static function delete(Request $request)
     {
         Redis::del($request->key);
 
-        return response(Redis::get($request->key),200);
+        return response(Redis::get($request->key), 200);
     }
 }
