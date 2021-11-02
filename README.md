@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About 「Laravel TRA Station API Server」
+## 關於 「Laravel TRA Station API Server」
 
 這是一份使用 PHP 框架 Laravel 進行撰寫的作品，以「公共運輸整合資訊流通服務平臺 」所提供的台鐵車站資料為基礎，加以串接整理後開發(搭配 Redis 儲存資料)供第三方使用者可應用的 API Server，請參考以下使用說明：
 
