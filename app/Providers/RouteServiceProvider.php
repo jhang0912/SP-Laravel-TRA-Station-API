@@ -58,7 +58,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('tra', function (Request $request) {
             return Limit::perMinute(60)->by($request->ip())->response(function () {
-                return response(['message' => '請求次數超出限制，請稍候再試'], 403);
+                return response(['Message' => '失敗，請求次數超出限制，請稍候再試'], 403);
             });
         });
     }

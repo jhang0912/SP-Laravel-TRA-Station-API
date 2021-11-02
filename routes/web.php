@@ -17,5 +17,4 @@ Route::middleware(['throttle:tra'])->prefix('v1/tra/stations')->group(function (
     Route::get('/', 'App\Http\Controllers\TraStationController@stations');
     Route::get('/{stationName}', 'App\Http\Controllers\TraStationController@station');
     Route::get('/{stationName}/exits', 'App\Http\Controllers\TraStationController@exits');
-    // Route::get('/delRedis/{key}', 'App\Http\Controllers\Redis\RedisController@delete');
 });

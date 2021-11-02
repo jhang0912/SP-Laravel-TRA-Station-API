@@ -20,19 +20,15 @@ class EnsureAppKeyIsValid
     public function handle(Request $request, Closure $next)
     {
         $serverDate = gmdate('D, d M Y H:i') . ' GMT';
-
         if ($request->hasHeader('Authorization')) {
             $clientSignature = $request->header('Authorization');
         } else {
-            return response(['message' => '請求未授權'], 401);
+            return response(['Message' => '失敗，請求未授權', 'Time' => now()], 401);
         }
-
         $serverSignature = "signature='" . base64_encode(hash_hmac('sha1', $serverDate, $this->appKey, true)) . "'";
-
         if ($clientSignature !== $serverSignature) {
-            return response(['message' => 'HMAC 簽章未通過驗證'], 403);
+            return response(['Message' => '失敗，HMAC 簽章未通過驗證', 'Time' => now()], 403);
         }
-
         return $next($request);
     }
 }
