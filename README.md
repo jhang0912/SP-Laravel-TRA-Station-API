@@ -15,22 +15,22 @@
 
 |方法|網址|功能說明|
 |--|--|--|
-|GET|http://35.194.145.6/v1/tra/stations|取得所有台鐵車站的基本資料|
-|GET|http://35.194.145.6/v1/tra/stations/{車站名稱}|取得單一台鐵車站的基本資料|
-|GET|http://35.194.145.6/v1/tra/stations/{車站名稱}/exits|取得單一台鐵車站所有出入口資料|
+|GET|http://34.81.119.178/v1/tra/stations|取得所有台鐵車站的基本資料|
+|GET|http://34.81.119.178/v1/tra/stations/{車站名稱}|取得單一台鐵車站的基本資料|
+|GET|http://34.81.119.178/v1/tra/stations/{車站名稱}/exits|取得單一台鐵車站所有出入口資料|
 
 ## 資料篩選
 ### 使用「取得所有台鐵車站的基本資料」服務時，可選擇附帶參數(二擇一)篩選資料，說明如下：
 - address：不限位數中文字串(string)，例如：台北市、中正區、新北、板橋
 - post code：三位數整數(integer)郵遞區號，例如：100、220
 ### 串接範例
-- address：http://35.194.145.6/v1/tra/stations?address=板橋區
-- post code：http://35.194.145.6/v1/tra/stations?postCode=220
+- address：http://34.81.119.178/v1/tra/stations?address=板橋區
+- post code：http://34.81.119.178/v1/tra/stations?postCode=220
 
 ## 使用說明
 ### 使用「取得單一台鐵車站的基本資料」服務時，{ }內需填入英文字串，內容為車站名稱，例如：Taipei、Wanhua
 ### 串接範例
-- http://35.194.145.6/v1/tra/stations/Taipei
+- http://34.81.119.178/v1/tra/stations/Taipei
 
 ## 嵌套資料
 ### 使用「取得單一台鐵車站的基本資料」服務時，可於網址後方輸入 「/exits 」查詢車站所有出入口資料
