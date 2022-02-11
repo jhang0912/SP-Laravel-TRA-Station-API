@@ -2,7 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\Http\Services\Signature\TraSignature;
+use App\Http\Services\Signature\TRASignature;
 use App\Http\Handle\ObjectToArray;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -14,7 +14,7 @@ class TraStationService
 
     public function __construct(string $resource)
     {
-        $this->authorization = new TraSignature();
+        $this->authorization = new TRASignature();
         $this->resource = $resource;
     }
 

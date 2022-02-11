@@ -8,7 +8,7 @@ use App\Http\Handle\StationExit;
 use App\Http\Handle\StationName;
 use App\Http\Controllers\Redis\RedisController;
 use App\Http\Controllers\Interfaces\RailStation;
-use App\Http\Services\TraStationService;
+use App\Http\Services\TRAStationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -17,14 +17,14 @@ class TraStationController extends Controller implements RailStation
     public function __construct()
     {
         if (Redis::get('tra_all_stations') == null) {
-            $TraStationService = new TraStationService('Stations');
+            $TraStationService = new TRAStationService('Stations');
             $stations = $TraStationService->handle('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/Station?$format=JSON');
             if ($stations != null) {
                 RedisController::create('tra_all_stations', json_encode($stations));
             }
         }
         if (Redis::get('tra_all_exits') == null) {
-            $TraStationService = new TraStationService('StationExits');
+            $TraStationService = new TRAStationService('StationExits');
             $stationExits = $TraStationService->handle('https://ptx.transportdata.tw/MOTC/v3/Rail/TRA/StationExit?$format=JSON');
             if ($stationExits != null) {
                 RedisController::create('tra_all_exits', json_encode($stationExits));

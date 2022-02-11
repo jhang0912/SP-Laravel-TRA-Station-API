@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['throttle:tra'])->prefix('v1/tra/stations')->group(function () {
-    Route::get('/', 'App\Http\Controllers\TraStationController@stations');
-    Route::get('/{stationName}', 'App\Http\Controllers\TraStationController@station');
-    Route::get('/{stationName}/exits', 'App\Http\Controllers\TraStationController@exits');
+    Route::get('/', 'App\Http\Controllers\TRAStationController@stations');
+    Route::get('/{stationName}', 'App\Http\Controllers\TRAStationController@station');
+    Route::get('/{stationName}/exits', 'App\Http\Controllers\TRAStationController@exits');
 });
